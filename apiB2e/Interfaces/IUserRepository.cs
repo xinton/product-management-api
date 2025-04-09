@@ -1,6 +1,6 @@
 using apiB2e.Entities;
 
-namespace ProductManagement.Core.Interfaces
+namespace apiB2e.Interfaces
 {
     public interface IUserRepository
     {
