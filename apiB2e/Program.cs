@@ -60,7 +60,7 @@ app.MapPost("/api/auth/login", async (LoginRequest request, IUserRepository user
         return Results.Unauthorized();
     }
     
-    // In a real application, you would generate a JWT token here
+    // TODO generate a JWT token
     return Results.Ok(new { message = "Login successful" });
 })
 .WithName("Login")
