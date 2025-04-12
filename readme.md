@@ -37,8 +37,8 @@ apiB2e/
 
 1. Clone o repositório:
    ```bash
-   git clone <url-do-repositorio>
-   cd b2e_api
+   git clone https://github.com/xinton/product-management-api
+   cd apiB2e
    ```
 
 2. Execute o Docker Compose:
