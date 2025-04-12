@@ -61,7 +61,7 @@ app.MapPost("/api/auth/login", async (LoginRequest request, IUserRepository user
     }
     
     // TODO generate a JWT token
-    return Results.Ok(new { message = "Login successful" });
+    return Results.Ok(new { message = "Login successful", token = "JWT" });
 })
 .WithName("Login")
 .WithOpenApi();
