@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: product-management-api
+    ports:
+      - "5000:80"
+    depends_on:
+      - sqlserver
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=ProductManagementDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+    networks:
+      - product-management-network
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: product-management-sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong!Passw0rd
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    networks:
+      - product-management-network
+
+networks:
+  product-management-network:
+    driver: bridge
+
+volumes:
+  sqlserver-data:
