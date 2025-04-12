@@ -15,6 +15,29 @@ namespace apiB2e.Infrastructure
             // Ensure the database is created
             await context.Database.MigrateAsync();
 
+            // Check if users already exist
+            if (!context.Users.Any())
+            {
+                // Add default admin user
+                var adminUser = new User
+                {
+                    Login = "admin",
+                    Senha = UserRepository.HashPassword("admin123"),  // Hashed password
+                    DataInclusao = DateTime.UtcNow
+                };
+
+                // Add test user
+                var testUser = new User
+                {
+                    Login = "teste",
+                    Senha = UserRepository.HashPassword("teste123"),  // Hashed password
+                    DataInclusao = DateTime.UtcNow
+                };
+
+                context.Users.AddRange(adminUser, testUser);
+                await context.SaveChangesAsync();
+            }
+
             // Seed some sample products if needed
             if (!context.Products.Any())
             {
