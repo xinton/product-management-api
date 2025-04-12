@@ -50,6 +50,22 @@ app.UseCors("AllowAll");
 // Seed database
 await DataSeeder.SeedProductsAsync(app.Services);
 
+// Authentication endpoint
+app.MapPost("/api/auth/login", async (LoginRequest request, IUserRepository userRepository) =>
+{
+    var isValid = await userRepository.ValidateUserAsync(request.Login, request.Password);
+    
+    if (!isValid)
+    {
+        return Results.Unauthorized();
+    }
+    
+    // In a real application, you would generate a JWT token here
+    return Results.Ok(new { message = "Login successful" });
+})
+.WithName("Login")
+.WithOpenApi();
+
 // Product endpoints
 app.MapGet("/api/produtos", async (
     int page, 
